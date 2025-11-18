@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Filter } from 'lucide-react'
+import { Filter, Download } from 'lucide-react'
+import ProviderImport from './ProviderImport'
 
 export default function ReservationPanel({ itinerary }) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
@@ -31,7 +32,7 @@ export default function ReservationPanel({ itinerary }) {
 
   return (
     <div className="space-y-4">
-      <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-lg">
+      <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-lg space-y-3">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search" className="bg-slate-800/60 border border-slate-700 rounded px-3 py-2 text-white placeholder-slate-400" />
           <select value={category} onChange={e=>setCategory(e.target.value)} className="bg-slate-800/60 border border-slate-700 rounded px-3 py-2 text-white">
@@ -48,13 +49,18 @@ export default function ReservationPanel({ itinerary }) {
           <input type="date" value={rangeStart} onChange={e=>setRangeStart(e.target.value)} className="bg-slate-800/60 border border-slate-700 rounded px-3 py-2 text-white" />
           <input type="date" value={rangeEnd} onChange={e=>setRangeEnd(e.target.value)} className="bg-slate-800/60 border border-slate-700 rounded px-3 py-2 text-white" />
         </div>
-        <div className="mt-3 flex gap-2">
+        <div className="mt-1 flex flex-wrap gap-2">
           <button onClick={load} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded inline-flex items-center gap-2">
             <Filter className="w-4 h-4" /> Apply Filters
           </button>
           <button onClick={()=>{setQ('');setCategory('');setProvider('');setLocation('');setRangeStart('');setRangeEnd(''); load();}} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded">
             Reset
           </button>
+        </div>
+
+        <div className="border-t border-slate-800 pt-3">
+          <p className="text-sm text-slate-300 mb-2">Import from providers</p>
+          <ProviderImport itineraryId={itinerary.id} onImported={load} />
         </div>
       </div>
 
