@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Filter, Download } from 'lucide-react'
+import { Filter } from 'lucide-react'
 import ProviderImport from './ProviderImport'
+import EmailImport from './EmailImport'
 
 export default function ReservationPanel({ itinerary }) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
@@ -58,9 +59,15 @@ export default function ReservationPanel({ itinerary }) {
           </button>
         </div>
 
-        <div className="border-t border-slate-800 pt-3">
-          <p className="text-sm text-slate-300 mb-2">Import from providers</p>
-          <ProviderImport itineraryId={itinerary.id} onImported={load} />
+        <div className="border-t border-slate-800 pt-3 grid gap-3">
+          <div>
+            <p className="text-sm text-slate-300 mb-2">Import from providers</p>
+            <ProviderImport itineraryId={itinerary.id} onImported={load} />
+          </div>
+          <div>
+            <p className="text-sm text-slate-300 mb-2">Import from email</p>
+            <EmailImport itineraryId={itinerary.id} onImported={load} />
+          </div>
         </div>
       </div>
 
